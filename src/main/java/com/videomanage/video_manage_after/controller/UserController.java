@@ -38,6 +38,11 @@ public class UserController {
         return userMapper.selectOne(queryWrapper);
     }
 
+    @GetMapping("/api/getUserById")
+    public User getUserById(@RequestParam(value = "id") int id) {
+        return userMapper.selectById(id);
+    }
+
     @PostMapping("/api/login")
     public LoginStatus login(@RequestBody User user) {
         try {
