@@ -138,10 +138,10 @@ private static String privateKeyText = "你的密钥";
 
 ```js
 app.provide("serverUrl", "http://localhost:10001") //服务器地址
-app.provide("videoSourceUrl", "视频文件夹的绝对路径") //视频资源地址
+app.provide("videoSourceUrl", "http://localhost:10001/resources") //视频资源地址
 ```
 
-这时，你应该将`serverlUrl`修改为`localhost:后端运行地址`,`videoSourceUrl`修改为`视频资源文件夹的绝对路径`
+这时，你应该将`serverlUrl`修改为`localhost:后端运行地址`,`videoSourceUrl`修改为`服务器地址+/resources`，原理是通过WebMvcConfigurer映射文件夹，让前端可以进行访问
 
 #### 2、修改后端代码的`src/main/resources/application.properties`的`upload-video-dir`
 
