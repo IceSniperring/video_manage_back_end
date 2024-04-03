@@ -145,7 +145,7 @@ app.provide("videoSourceUrl", "http://localhost:10001/resources") //视频资源
 
 #### 2、修改后端代码的`src/main/resources/application.properties`的`upload-video-dir`
 
-这时，和服务器上相似，你需要将`upload-video-dir`文件夹修改为`1`的本地视频资源文件夹的`绝对路径`,这样就并不需要读取http服务提供的视频资源地址，而是本地文件夹的视频资源
+这时，和服务器上相似，你需要将`upload-video-dir`文件夹修改为本地视频资源文件夹的`绝对路径`,这样就并不需要读取http服务提供的视频资源地址，而是本地文件夹的视频资源
 
 ### 三、项目截图
 
