@@ -19,11 +19,14 @@ import org.springframework.web.multipart.MultipartFile;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 import com.videomanage.video_manage_after.utils.FileOperation;
 
 import java.util.List;
+import java.util.TimeZone;
 
 @RestController
 @CrossOrigin
@@ -114,11 +117,13 @@ public class VideoController {
                                     MultipartFile videoFile,
                                     @RequestParam String kind,
                                     MultipartFile postFile) {
-        LocalDateTime currentTime = LocalDateTime.now();
+        ZoneId zoneId = ZoneId.of("Asia/Shanghai"); // 时区为shanghai
+        ZonedDateTime zonedDateTime = ZonedDateTime.now(zoneId);
+        //LocalDateTime currentTime = LocalDateTime.now();
         // 定义日期时间格式
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         // 格式化当前时间
-        String formattedDateTime = currentTime.format(formatter);
+        String formattedDateTime = zonedDateTime.format(formatter);
         String filePath = "/" + kind + "/" + formattedDateTime.replaceAll("[^a-zA-Z0-9.-]", "_") + "/" + videoFile.getOriginalFilename();
         String postPath = "/" + kind + "/" + "image/" + formattedDateTime.replaceAll("[^a-zA-Z0-9.-]", "_") + "/" + postFile.getOriginalFilename();
         int code = 1;
@@ -234,6 +239,6 @@ public class VideoController {
             if (!deleteStatus.isSuccess()) return new MultiDeleteStatus(deleteStatus, i);
         }
         //如果都是删除成功，那么直接返回删除成功
-        return new MultiDeleteStatus(new DeleteStatus(true,1),-1);
+        return new MultiDeleteStatus(new DeleteStatus(true, 1), -1);
     }
 }
