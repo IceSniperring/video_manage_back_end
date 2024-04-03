@@ -25,6 +25,7 @@ import java.time.format.DateTimeFormatter;
 
 import com.videomanage.video_manage_after.utils.FileOperation;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -108,6 +109,17 @@ public class VideoController {
         QueryWrapper<Video> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("uid", uid);
         return videoMapper.selectList(queryWrapper);
+    }
+
+    @GetMapping("/api/getVideoByVid")
+    public List<Video> getVideoByVid(@RequestParam(value = "vid") int[] vid) {
+        List<Video> videoList = new ArrayList<>();
+        for (int item : vid) {
+            QueryWrapper<Video> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("id", vid);
+            videoList.add(videoMapper.selectById(item));
+        }
+        return videoList;
     }
 
     //上传视频的api
