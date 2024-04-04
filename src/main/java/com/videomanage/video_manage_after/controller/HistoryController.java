@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.videomanage.video_manage_after.entity.History;
 import com.videomanage.video_manage_after.entity.HistoryRecordDTO;
 import com.videomanage.video_manage_after.mapper.HistoryMapper;
+import com.videomanage.video_manage_after.status.DeleteStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,7 +29,8 @@ public class HistoryController {
     }
 
     @PostMapping("/api/setHistory")
-    public boolean setHistory(@RequestParam int uid, @RequestParam int vid) {
+    public boolean setHistory(@RequestParam(value = "uid") int uid,
+                              @RequestParam(value = "vid") int vid) {
         ZoneId zoneId = ZoneId.of("Asia/Shanghai"); // 时区为shanghai
         ZonedDateTime zonedDateTime = ZonedDateTime.now(zoneId);
         //LocalDateTime currentTime = LocalDateTime.now();
@@ -42,5 +44,20 @@ public class HistoryController {
             historyMapper.delete(queryWrapper);
         }
         return historyMapper.insertHistory(uid, vid, formattedDateTime) != 0;
+    }
+
+    @DeleteMapping("/api/deleteHistory")
+    public DeleteStatus deleteHistory(@RequestParam long[] id) {
+        try {
+            for (long item : id) {
+                if (historyMapper.deleteById(item) == 0) {
+                    return new DeleteStatus(false, 5);
+                }
+            }
+            return new DeleteStatus(true, 1);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            return new DeleteStatus(false, 6);
+        }
     }
 }

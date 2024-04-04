@@ -5,8 +5,6 @@ import com.baomidou.mybatisplus.annotation.TableField;
 public class History {
     private int recordId, uid, vid;
     private String viewDate;
-    @TableField(exist = false)
-    private Video video;
 
     public int getRecordId() {
         return recordId;

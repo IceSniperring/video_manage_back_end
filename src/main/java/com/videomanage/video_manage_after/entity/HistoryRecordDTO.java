@@ -1,11 +1,19 @@
 package com.videomanage.video_manage_after.entity;
 
 public class HistoryRecordDTO {
-    private int recordId;
+    private int recordId,videoId;
     private String title,kind,filePath,postPath,viewDate;
 
     public int getRecordId() {
         return recordId;
+    }
+
+    public int getVideoId() {
+        return videoId;
+    }
+
+    public void setVideoId(int videoId) {
+        this.videoId = videoId;
     }
 
     public void setRecordId(int recordId) {
